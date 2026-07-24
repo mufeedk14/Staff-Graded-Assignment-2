@@ -1,0 +1,17 @@
+#Question 4
+
+Pipeline:
+
+tail -n 0 -f -q /var/log/test.log 2> /dev/null | tee  complete_report.txt | grep -i "error" | tee -a error_report.txt
+
+OR
+
+tail -n 0 -f -q /var/log/test.log | grep -i "error" | tee "error_report.txt"
+
+Explanation: the tail command reads the last few lines of the given file, here it only reads new lines avoiding previous lines due to the -n 0 option and using the -f option, it follows the file and display new logs that are added, -q option is used for quiet mode in tail which suppresses headers and unnecessary stuff. This is piped to tee which writes the complete log inside complete_report.txt and its piped again to grep which searches for errors in text and this output is piped to tee again which displays error messages in terminal and writes errors to error_report.txt, -a used here for appending.
+The second pipeline only display and stores errors in logfile
+
+The pipe operator cleanly sends outputs of a command as inputs to second command which helps in chaining commands easily. /dev/null is used to discard unwanted output. grep is efficient as it avoids processing text character by character instead it scans large blocks of data
+
+
+
