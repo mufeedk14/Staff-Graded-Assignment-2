@@ -1,0 +1,19 @@
+#Question 5
+
+The most reliable recovery strategy is recovering using swap file by using auto recovery, for this scenario
+
+Swap Files:
+Vi creates swap files (files with .swp extension) as a form of temporary backup while you edit. These files continuously record buffer edits to disk periodically. In case of a crash, these swap files can be used to recover unsaved changes, if a crash occurs, opening the file again using vim -r filename.txt or just vim -r will open the swap file and you can recover unsaved changes using :w and the swp file can be later removed
+
+Undo History:
+Vi maintains an undo history, allowing you to revert recent changes. Reverting the last change made can be done using u in vi command mode. This is not useful in this case as the undo history is stored in RAM which clears when system shuts down
+
+Register:
+Vi stores deleted/cut text in numbered and named registers. To recover deleted text from a specific register, use “xP,” where x is the register number. For example, "0P" retrieves text from the "0" register.
+This is also not useful as these are stored in regsiters which are registers are kept in volatile memory
+
+Backup Files:
+These are backed up files of the original file which are either created manually or using a script. The reliability of this highly depends on whether there is backup enabled and also whether backup is done periodically, and also frequency of backups which is not present in this case and they also update when a manual save is made using :w in original file
+
+Auto-recovery
+This is a command line option used to recover original file from swap files. it restores unsaved changes directly into vi
